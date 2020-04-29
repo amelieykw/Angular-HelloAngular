@@ -25,7 +25,7 @@ export class TodoListComponent implements OnInit {
   }
 
   addItem(newItem) {
-    if (newItem != "") {
+    if (newItem !== '') {
       this.model.items.push(new TodoItem(newItem, false));
     }
   }
