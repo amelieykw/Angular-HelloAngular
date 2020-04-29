@@ -1,0 +1,4 @@
+<nz-modal [(nzVisible)]="isVisible" [nzVisible]="title" [nzOkText]="okText" [nzCancelText]="cancelText"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    {{content}}
+</nz-modal>
