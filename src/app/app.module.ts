@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { OnlineStoreComponent } from './online-store/online-store.component';
 
 registerLocaleData(en);
 
@@ -18,7 +19,8 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     ModalComponent,
-    TodoListComponent
+    TodoListComponent,
+    OnlineStoreComponent
   ],
   imports: [
     BrowserModule,

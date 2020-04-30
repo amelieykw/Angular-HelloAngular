@@ -1,0 +1,61 @@
+<div [ngClass]="'text-white m-2 p-2 ' + getClass()">
+    There are {{ model.getProducts().length }} products in the model.
+</div>
+<div ngClass="'text-white m-2 p-2 ' + getClass()">
+    There are {{ model.getProducts().length }} products in the model.
+</div>
+
+<div class="m-2">
+    <div class="bg-info text-white p-2">
+        Selected Product: {{ selectedProduct || '(None)' }}
+    </div>
+    <table class="table table-sm table-bordered">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of getProducts(); let i = index" [class.bg-info]="getSelected(item)"
+            (mouseover)="selectedProduct=item.name">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.price }}</td>
+        </tr>
+    </table>
+    <div class="form-group">
+        <label>Product Name (two-way binding)</label>
+        <input class="form-control" [(ngModel)]="selectedProduct" />
+    </div>
+    <div class="form-group">
+        <label>Product Name (event binding)</label>
+        <input class="form-control" (keyup.enter)="selectedProduct=$event.target.value"
+            [value]="selectedProduct || ''" />
+    </div>
+    <div class="form-group">
+        <label>Product Name (event binding)</label>
+        <input class="form-control" (keyup.enter)="selectedProduct=$event.target.value"
+            [value]="selectedProduct || ''" />
+    </div>
+</div>
+
+<hr />
+<h2>add a new product</h2>
+<div class="m-2">
+    <div class="bg-info text-white mb-2 p-2">Model Data: {{ jsonProduct }}</div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" [(ngModel)]="newProduct.name" />
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <input class="form-control" [(ngModel)]="newProduct.category" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <input class="form-control" [(ngModel)]="newProduct.price" />
+    </div>
+    <button class="btn btn-primary" (click)="addProduct(newProduct)">Create</button>
+</div>
