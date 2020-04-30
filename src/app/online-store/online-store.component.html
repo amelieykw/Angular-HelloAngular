@@ -1,3 +1,5 @@
+<!-- [ngClass] -->
+<h2>[ngClass]</h2>
 <div [ngClass]="'text-white m-2 p-2 ' + getClass()">
     There are {{ model.getProducts().length }} products in the model.
 </div>
@@ -5,6 +7,9 @@
     There are {{ model.getProducts().length }} products in the model.
 </div>
 
+<!-- event binding - (keyup.enter) -->
+<hr />
+<h2>event binding - (keyup.enter)</h2>
 <div class="m-2">
     <div class="bg-info text-white p-2">
         Selected Product: {{ selectedProduct || '(None)' }}
@@ -40,8 +45,9 @@
     </div>
 </div>
 
+<!-- add a new product - [(ngModel)] -->
 <hr />
-<h2>add a new product</h2>
+<h2>add a new product - [(ngModel)]</h2>
 <div class="m-2">
     <div class="bg-info text-white mb-2 p-2">Model Data: {{ jsonProduct }}</div>
 
@@ -58,4 +64,88 @@
         <input class="form-control" [(ngModel)]="newProduct.price" />
     </div>
     <button class="btn btn-primary" (click)="addProduct(newProduct)">Create</button>
+</div>
+
+<!-- verify form -->
+<!-- <hr />
+<h2>verify form</h2>
+<div class="m-2">
+    <div class="bg-info text-white mb-2 p-2">Model Data: {{ jsonProduct }}</div>
+
+    <form novalidate (ngSubmit)="addProduct(newProduct)">
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="nameInputInForm" [(ngModel)]="newProduct.name" required minlength="5"
+                pattern="^[A-Za-z ]+$" #nameInput="ngModel" />
+            path: {{ nameInput.path }} <br />
+            <hr />
+            valid: {{ nameInput.valid }} <br />
+            invalid: {{ nameInput.invalid }} <br />
+            <hr />
+            pristine: {{ nameInput.pristine }} <br />
+            dirty: {{ nameInput.dirty }} <br />
+            <hr />
+            touched: {{nameInput.touched}} <br />
+            untouched: {{nameInput.untouched}} <br />
+            <hr />
+            value: {{nameInput.value}} <br />
+            <ul class="text-danger list-unstyled" *ngIf="nameInput.dirty">
+                <li *ngIf="nameInput.errors?.requried">
+                    You must enter a product name
+                </li>
+                <li *ngIf="nameInput.errors?.pattern">
+                    You've entered "{{nameInput.errors.pattern.actualValue}}"<br />
+                    Product names can only contain letters and spaces
+                </li>
+                <li *ngIf="nameInput.errors?.minlength">
+                    {{ nameInput.errors.minlength.requiredLength }} characters minimum required
+                </li>
+            </ul>
+        </div>
+    </form>
+</div> -->
+
+<!-- verify form Optimization-->
+<!-- <hr />
+<h2>verify form optimization</h2>
+<div class="m-2">
+    <div class="bg-info text-white mb-2 p-2">Model Data: {{ jsonProduct }}</div>
+
+    <form novalidate (ngSubmit)="addProduct(newProduct)">
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="nameInputInForm" [(ngModel)]="newProduct.name" required minlength="5"
+                pattern="^[A-Za-z ]+$" #nameInput="ngModel" />
+            <ul class="text-danger list-unstyled" *ngIf="nameInput.dirty && nameInput.invalid">
+                <li *ngFor="let error of getValidationMessage(nameInput)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+    </form>
+</div> -->
+
+<!-- verify form by NgForm-->
+<hr />
+<h2>verify form by NgForm</h2>
+<div class="m-2">
+    <div class="bg-info text-white mb-2 p-2">Model Data: {{ jsonProduct }}</div>
+
+    <form novalidate #form="ngForm" (ngSubmit)="submitForm(form)">
+        <div class="bg-danger text-white p-2 mb-2" *ngIf="formSubmitted && form.invalid">
+            There are problems with the form.
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="nameInputInForm" [(ngModel)]="newProduct.name" required minlength="5"
+                pattern="^[A-Za-z ]+$" #nameInput="ngModel" />
+            <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || nameInput.dirty) && nameInput.invalid">
+                <li *ngFor="let error of getValidationMessage(nameInput)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
 </div>
